@@ -659,7 +659,8 @@ urls = [
 "http://61.175.237.1:9901",
 "http://61.184.128.1:1111",
 "http://61.184.128.1:9901",
-"http://61.53.90.1:9901",
+"http://aktv.space/live.m3u",
+"https://gh.tryxd.cn/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv6.m3u",
 "http://61.54.14.1:9901"
 ]
 
@@ -738,7 +739,7 @@ async def fetch_json(session, url, semaphore):
                                 name = name.replace("标清", "")
                                 name = name.replace("频道", "")
                                 name = name.replace("港澳台", "TVB")
-                                name = name.replace("", "")
+                                name = name.replace("港澳台", "AKTV")
                                 name = name.replace("PLUS", "+")
                                 name = name.replace("＋", "+")
                                 name = name.replace("(", "")
@@ -914,6 +915,20 @@ async def main():
         for result in results:
             channel_name, channel_url, speed = result
             if '卫视' in channel_name:
+                if channel_name in channel_counters:
+                    if channel_counters[channel_name] >= result_counter:
+                        continue
+                    else:
+                        file.write(f"{channel_name},{channel_url}\n")
+                        channel_counters[channel_name] += 1
+                else:
+                    file.write(f"{channel_name},{channel_url}\n")
+                    channel_counters[channel_name] = 1
+        channel_counters = {}
+        file.write('港澳台频道,#genre#\n')
+        for result in results:
+            channel_name, channel_url, speed = result
+            if 'TVB' in channel_name:
                 if channel_name in channel_counters:
                     if channel_counters[channel_name] >= result_counter:
                         continue
