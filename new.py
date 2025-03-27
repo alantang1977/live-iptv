@@ -12,6 +12,9 @@ eventlet.monkey_patch()
 
 
 urls = [
+"https://gh.tryxd.cn/https://raw.githubusercontent.com/alantang1977/JunTV/refs/heads/main/output/result.m3u",
+"https://gh.tryxd.cn/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv6.m3u",
+"http://aktv.space/live.m3u",
 "http://1.192.12.1:9901",
 "http://1.192.248.1:9901",
 "http://1.194.52.1:10086",
@@ -659,11 +662,9 @@ urls = [
 "http://61.175.237.1:9901",
 "http://61.184.128.1:1111",
 "http://61.184.128.1:9901",
-"http://aktv.space/live.m3u",
-"https://gh.tryxd.cn/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv6.m3u",
+"http://61.53.90.1:9901",
 "http://61.54.14.1:9901"
 ]
-
 
 async def modify_urls(url):
     modified_urls = []
@@ -929,6 +930,20 @@ async def main():
         for result in results:
             channel_name, channel_url, speed = result
             if 'TVB' in channel_name:
+                if channel_name in channel_counters:
+                    if channel_counters[channel_name] >= result_counter:
+                        continue
+                    else:
+                        file.write(f"{channel_name},{channel_url}\n")
+                        channel_counters[channel_name] += 1
+                else:
+                    file.write(f"{channel_name},{channel_url}\n")
+                    channel_counters[channel_name] = 1
+        channel_counters = {}
+        file.write('广东频道,#genre#\n')
+        for result in results:
+            channel_name, channel_url, speed = result
+            if '广州' in channel_name:
                 if channel_name in channel_counters:
                     if channel_counters[channel_name] >= result_counter:
                         continue
