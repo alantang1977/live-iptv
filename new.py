@@ -12,9 +12,9 @@ eventlet.monkey_patch()
 
 
 urls = [
-"https://gh.tryxd.cn/https://raw.githubusercontent.com/alantang1977/JunTV/refs/heads/main/output/result.m3u",
-"https://gh.tryxd.cn/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv6.m3u",
-"http://aktv.space/live.m3u",
+"http://43.224.248.29:9901",
+"https://45.60.182.203:9309",
+"http://156.237.224.246:80",
 "http://1.192.12.1:9901",
 "http://1.192.248.1:9901",
 "http://1.194.52.1:10086",
