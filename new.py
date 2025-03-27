@@ -929,7 +929,7 @@ async def main():
             channel_name, channel_url, speed = result
             if 'TVB' in channel_name:                    #修改这里，想增加什么频道或者分类就在这里定义。如戏曲什么的。
                 if channel_name in channel_counters:
-                if channel_counters[channel_name] >= result_counter:
+                    if channel_counters[channel_name] >= result_counter:
                     continue
                 else:
                 file.write(f"#EXTINF:-1 group-title=\"港澳台频道\",{channel_name}\n")
