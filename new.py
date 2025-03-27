@@ -929,7 +929,7 @@ async def main():
         file.write('港澳台频道,#genre#\n')
         for result in results:
             channel_name, channel_url, speed = result
-            if 'TVB' in channel_name:
+            if 'TVB/翡翠' in channel_name:
                 if channel_name in channel_counters:
                     if channel_counters[channel_name] >= result_counter:
                         continue
@@ -943,7 +943,7 @@ async def main():
         file.write('广东频道,#genre#\n')
         for result in results:
             channel_name, channel_url, speed = result
-            if '广州' in channel_name:
+            if '广州/广东' in channel_name:
                 if channel_name in channel_counters:
                     if channel_counters[channel_name] >= result_counter:
                         continue
