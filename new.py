@@ -870,7 +870,7 @@ async def main():
 
 
     # 创建工作线程
-    num_workers = 10
+    num_workers = 20
     #pool = eventlet.GreenPool(num_workers)
     for _ in range(num_workers):
         #pool.spawn(worker)
@@ -892,7 +892,7 @@ async def main():
     results.sort(key=lambda x: (x[0], -float(x[2].split()[0])))
     results.sort(key=lambda x: channel_key(x[0]))
 
-    result_counter = 8  # 每个频道需要的个数
+    result_counter = 15  # 每个频道需要的个数
 
     with open("itvlist.txt", 'w', encoding='utf-8') as file:
         channel_counters = {}
