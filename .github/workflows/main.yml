@@ -2,10 +2,11 @@ name: itvlist
 
 on:
   schedule:
-    - cron: '0 21 5 * *'
+    - cron: '0 21 5 * *'   # 每月5日 21:00 UTC 自动运行
   push:
     branches:
       - main
+  workflow_dispatch:        # 支持手动触发
 
 jobs:
   build:
@@ -13,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v2
+      
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v2
         with:
           python-version: '3.12.3'
 
@@ -26,13 +27,15 @@ jobs:
       - name: Run cctv
         run: python ${{ github.workspace }}/new.py
 
-      - name: List generated .txt files
-        run: ls -l *.txt || echo "No .txt files found"
-
-      - name: 提交更改
+      - name: 提交并推送更改
         run: |
           git config --local user.email "ssili@126.com"
           git config --local user.name "ssili126"
-          git add *.txt || echo "No .txt files to add"
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Add generated file"
-          git push -f
+          git add *.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Add generated file"
+            git pull --rebase origin main
+            git push origin main
+          fi
