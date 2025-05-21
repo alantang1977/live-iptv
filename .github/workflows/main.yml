@@ -27,15 +27,12 @@ jobs:
       - name: Run cctv
         run: python ${{ github.workspace }}/new.py
 
-      - name: 提交并推送更改
+      - name: 提交更改
         run: |
           git config --local user.email "ssili@126.com"
           git config --local user.name "ssili126"
-          git add *.txt
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "Add generated file"
-            git pull --rebase origin main
-            git push origin main
-          fi
+          git add .
+          git commit *.txt -m "Add generated file"
+          #git commit *.m3u -m "Add generated file"
+          #git pull --rebase
+          git push -f
